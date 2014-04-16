@@ -1,3 +1,4 @@
+#!/bin/sh
 export target="scripts/build/untrusted.js"
 
 export modules="scripts/util.js 
