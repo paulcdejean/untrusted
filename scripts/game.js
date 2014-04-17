@@ -1,4 +1,5 @@
 function Game(debugMode, startLevel) {
+    localStorage.clear(); // don't save anything between refreshes- remove me when done debugging (not having this can result in unfixable validation error
     /* private properties */
 
     var __currentCode = '';
