@@ -19,9 +19,9 @@ export modules="scripts/util.js
              scripts/_launcher_release.js 
 	         scripts/_tail.js"
 
-echo "Building level file...\t\t\t\c"
+echo "Building level file..."
 ./compile_levels.sh
 echo "[ Done ]"
-echo "Merging JS files...\t\t\t\c"
+echo "Merging JS files..."
 cat $modules > $target
 echo "[ Done ]"

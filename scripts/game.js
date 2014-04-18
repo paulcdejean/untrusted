@@ -1,5 +1,4 @@
 function Game(debugMode, startLevel) {
-    localStorage.clear(); // don't save anything between refreshes- remove me when done debugging (not having this can result in unfixable validation error
     /* private properties */
 
     var __currentCode = '';
@@ -175,7 +174,7 @@ function Game(debugMode, startLevel) {
             // unless the current level is a newer version
             var newVer = editor.getProperties().version;
             var savedVer = editor.getGoodState(levelNum).version;
-            if (!(newVer && (!savedVer || isNewerVersion(newVer, savedVer)))) {
+            if (newVer != savedVer) {
                 // restore saved line/section/endOfStartLevel state if possible
                 if (editor.getGoodState(levelNum).endOfStartLevel) {
                     editor.setEndOfStartLevel(editor.getGoodState(levelNum).endOfStartLevel);
