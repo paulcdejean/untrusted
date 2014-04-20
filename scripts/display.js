@@ -162,10 +162,8 @@ ROT.Display.prototype.playIntro = function (map, i) {
         if (typeof i === 'undefined') { i = map.getHeight(); }
         this.clear();
         this.drawText(0, i - 2, "%c{#0f0}> initialize")
-        this.drawText(15, i + 3, "U N T R U S T E D");
-        this.drawText(20, i + 5, "- or - ");
-        this.drawText(5, i + 7, "THE CONTINUING ADVENTURES OF DR. EVAL");
-        this.drawText(3, i + 12, "a game by Alex Nisnevich and Greg Shuflin");
+        this.drawText(15, i + 8, "UNTRUSTED:");
+        this.drawText(17, i + 10, "redefinition");
         this.drawText(10, i + 22, "Press any key to begin ...")
         setTimeout(function () {
             display.playIntro(map, i - 1);

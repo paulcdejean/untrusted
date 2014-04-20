@@ -9,25 +9,11 @@
 }
 #END_PROPERTIES#
 /*****************
- * cellBlockA.js *
+ * cellBlockB.js *
  *****************
  *
- * Good morning, Dr. Eval.
+ * Lets try something a little less... trivial
  *
- * It wasn't easy, but I've managed to get your computer down
- * to you. This system might be unfamiliar, but the underlying
- * code is still JavaScript. Just like we predicted.
- *
- * Now, let's get what we came here for and then get you out of
- * here. Easy peasy.
- *
- * I've given you as much access to their code as I could, but
- * it's not perfect. The red background indicates lines that
- * are off-limits from editing.
- *
- * The code currently places blocks in a rectangle surrounding
- * you. All you need to do is make a gap. You don't even need
- * to do anything extra. In fact, you should be doing less.
  */
 
 function startLevel(map) {
@@ -54,11 +40,6 @@ function startLevel(map) {
 #END_OF_START_LEVEL#
 }
 
-function onExit(map) {
-    if (!map.getPlayer().hasItem('computer')) {
-        map.writeStatus("Don't forget to pick up the computer!");
-        return false;
-    } else {
-        return true;
-    }
+function validateLevel(map) {
+    map.validateExactlyXManyObjects(1, 'exit');
 }
