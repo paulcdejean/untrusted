@@ -1,6 +1,6 @@
 #BEGIN_PROPERTIES#
 {
-    "version": "1.3.9",
+    "version": "1.3.10",
     "commandsIntroduced":
         ["global.startLevel", "global.onExit", "map.placePlayer",
          "map.placeObject", "map.getHeight", "map.getWidth",
