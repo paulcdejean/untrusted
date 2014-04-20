@@ -1,6 +1,6 @@
 #BEGIN_PROPERTIES#
 {
-    "version": "1.3.1",
+    "version": "1.3.2",
     "commandsIntroduced":
         ["global.startLevel", "global.onExit", "map.placePlayer",
          "map.placeObject", "map.getHeight", "map.getWidth",
@@ -27,7 +27,7 @@ function startLevel(map) {
 #BEGIN_EDITABLE#
     // You get your computer in this level so it should be easy :D
     map.placeObject(15, 12, 'computer');
-#END_EDITABLE#
+
 
     for (y = 3; y <= map.getHeight() - 10; y++) {
         map.placeObject(5, y, 'block');
@@ -38,6 +38,7 @@ function startLevel(map) {
         map.placeObject(x, 3, 'block');
         map.placeObject(x, map.getHeight() - 10, 'block');
     }
+#END_EDITABLE#
 
     map.placeObject(map.getWidth()-7, map.getHeight()-5, 'exit');
 #END_OF_START_LEVEL#
