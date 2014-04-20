@@ -1,6 +1,6 @@
 #BEGIN_PROPERTIES#
 {
-    "version": "1.2",
+    "version": "2.02",
     "commandsIntroduced":
         ["global.validateLevel", "map.validateAtLeastXObjects",
          "map.validateExactlyXManyObjects"],
@@ -8,40 +8,49 @@
 }
 #END_PROPERTIES#
 /************************
- * validationEngaged.js *
+ * <level name>.js *
  ************************
  *
- * They're really on to us now! The validateLevel function
- * has been activated to enforce constraints on what you can
- * do. In this case, you're not allowed to remove any blocks.
+ * <flavor text>
  *
- * They're doing all they can to keep you here. But you
- * can still outsmart them.
+ *todo: make this level more interesting
  */
 
 function startLevel(map) {
 #START_OF_START_LEVEL#
-    map.placePlayer(map.getWidth()-7, map.getHeight()-5);
+    map.defineObject('door', {
+      'symbol': '-', 'color': '#0f0',
+      'impassable': function(player) {
+        if (player.getColor() == this.color) {
+          player.setColor('red'); 
+          return false;
+        }
+        return true;
+      }
+    });
+    map.createFromGrid(
+       ['+++++++++++++++',
+        '+        +    +',
+        '+          ++ +',
+        '+      @  ++x +',
+        '+         ++x++',
+        '+         ++E++',
+        '+++++++++++++++'],
+    {
+        '@': 'player',
+        'E': 'exit',
+        '+': 'block',
+        'x': 'door',
+    }, 17, 6);
 #BEGIN_EDITABLE#
-
-    for (y = 10; y <= map.getHeight() - 3; y++) {
-        map.placeObject(5, y, 'block');
-        map.placeObject(map.getWidth() - 5, y, 'block');
-    }
-
-    for (x = 5; x <= map.getWidth() - 5; x++) {
-        map.placeObject(x, 10, 'block');
-        map.placeObject(x, map.getHeight() - 3, 'block');
-    }
+  
 #END_EDITABLE#
 
-    map.placeObject(7, 5, 'exit');
 #END_OF_START_LEVEL#
 }
 
 function validateLevel(map) {
-    numBlocks = 2 * (map.getHeight()-13) + 2 * (map.getWidth()-10);
-
-    map.validateAtLeastXObjects(numBlocks, 'block');
+    map.validateExactlyXManyObjects(0, 'phone');
+    map.validateExactlyXManyObjects(0, 'theAlgorithm');
     map.validateExactlyXManyObjects(1, 'exit');
 }
