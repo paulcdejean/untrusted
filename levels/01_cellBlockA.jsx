@@ -1,6 +1,6 @@
 #BEGIN_PROPERTIES#
 {
-    "version": "1.3.1",
+    "version": "1.3.10",
     "commandsIntroduced":
         ["global.startLevel", "global.onExit", "map.placePlayer",
          "map.placeObject", "map.getHeight", "map.getWidth",
@@ -11,35 +11,38 @@
 /*****************
  * cellBlockA.js *
  *****************
- *
- * Hey Marcel. I've eliminated some of the more obvious ways
- * you can cheat yourself out of this box.
- * This should still be a simple puzzle though, even with the
- * extra restrictions you'll have to deal with.
+ * Here's the first non trivial level I was able to think of.
+ * You can beat this without overwriting functions or any other
+ * funny business so try and stay honest!
  */
 
 function startLevel(map) {
 #START_OF_START_LEVEL#
-    map.displayChapter('Chapter 1\nSimple box');
+    map.displayChapter('Chapter 1\nThree keys');
 
     map.placePlayer(7, 5);
 
-#BEGIN_EDITABLE#
-    // You get your computer in this level so it should be easy :D
-    map.placeObject(15, 12, 'computer');
-#END_EDITABLE#
-
-    for (y = 3; y <= map.getHeight() - 10; y++) {
-        map.placeObject(5, y, 'block');
-        map.placeObject(map.getWidth() - 5, y, 'block');
+    // The basic level layout.
+    for (y = 0; y <= map.getHeight(); y++) {
+        map.placeObject(16, y, 'block');
+        map.placeObject(32, y, 'block');
     }
 
-    for (x = 5; x <= map.getWidth() - 5; x++) {
-        map.placeObject(x, 3, 'block');
-        map.placeObject(x, map.getHeight() - 10, 'block');
+    for (x = 17; x <= 31; x++) {
+    	map.placeObject(x, 7, 'block');
+	map.placeObject(x, 17, 'block');
     }
+
+    map.placeObject(24, 3, 'redKey');
+    map.placeObject(24, 12, 'greenKey');
+    map.placeObject(24, 21, 'blueKey');
 
     map.placeObject(map.getWidth()-7, map.getHeight()-5, 'exit');
+
+#BEGIN_EDITABLE#
+    // You might find this useful.
+    map.placeObject(8, 6, 'phone');
+#END_EDITABLE#
 #END_OF_START_LEVEL#
 }
 
@@ -47,15 +50,24 @@ function validateLevel(map) {
     // No creating exits!
     map.validateExactlyXManyObjects(1, 'exit');
 
-    // No fancy items!
-    map.validateExactlyXManyObjects(0, 'phone');
+    // No cheating please!
     map.validateExactlyXManyObjects(0, 'theAlgorithm');
+
+    // You need to pick up the keys, not create them.
+    map.validateAtMostXObjects(1, 'redKey');
+    map.validateAtMostXObjects(1, 'greenKey');
+    map.validateAtMostXObjects(1, 'blueKey');
+
+    // This is the puzzle :)
+    map.validateAtMostXDynamicObjects(3);
 }
 
 
 function onExit(map) {
-    if (!map.getPlayer().hasItem('computer')) {
-        map.writeStatus("Don't forget to pick up the computer!");
+    if (!map.getPlayer().hasItem('redKey')
+        || !map.getPlayer().hasItem('greenKey')
+        || !map.getPlayer().hasItem('blueKey')) {
+        map.writeStatus("Collect all 3 keys before exiting!");
         return false;
     } else {
         return true;

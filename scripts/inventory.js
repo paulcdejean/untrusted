@@ -38,11 +38,14 @@ Game.prototype.setInventoryStateByLevel = function (levelNum) {
 	this.inventory = [];
 
 	// repopulate inventory by level
-	if (levelNum > 1) {
+	if (levelNum > 0) {
 		this.addToInventory('computer');
 		$('#editorPane').fadeIn();
 		this.editor.refresh();
 	}
+
+	// We don't need to start with any other items for now.
+	/*
 	if (levelNum > 7) {
 		this.addToInventory('phone');
 		$('#phoneButton').show();
@@ -68,6 +71,7 @@ Game.prototype.setInventoryStateByLevel = function (levelNum) {
 	if (levelNum > 20) {
 		this.addToInventory('theAlgorithm');
 	}
+	*/
 
 	// does this belong here? it does in a vague way maybe
 	if (this.editor.getProperties().activateSuperMenu) {
