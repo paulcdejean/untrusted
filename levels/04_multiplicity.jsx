@@ -1,40 +1,95 @@
 #BEGIN_PROPERTIES#
 {
-    "version": "1.2",
+    "version": "2.01",
     "commandsIntroduced": [],
     "music": "coming soon"
 }
 #END_PROPERTIES#
 /*******************
- * multiplicity.js *
+ * ice.js *
  *******************
  *
- * Out of one cell and into another. They're not giving you
- * very much to work with here, either. Ah, well.
+ * omgomgomgomg
  *
- * Level filenames can be hints, by the way. Have I
- * mentioned that before?
- *
- * No more cells after this one. I promise.
  */
 
 function startLevel(map) {
 #START_OF_START_LEVEL#
-
-    map.placePlayer(map.getWidth()-5, map.getHeight()-4);
-
-    for (y = 7; y <= map.getHeight() - 3; y++) {
-        map.placeObject(7, y, 'block');
-        map.placeObject(map.getWidth() - 3, y, 'block');
-    }
+    var savedX, savedY, savedDirection;
+    map.defineObject('ice', {
+      'symbol': '.', 'color': '#00f',
+      'impassable': function(player, me) {
+        savedX = player.getX();
+        savedY = player.getY();
+        return false;
+      },
+      'onCollision': function(player) {
+        if (player.getX() == savedX) {
+          if (player.getY() > savedY) {
+            savedDirection = 'down';
+          } else {
+            savedDirection = 'up';
+          }
+        } else {
+          if (player.getX() > savedX) {
+            savedDirection = 'right';
+          } else {
+            savedDirection = 'left';
+          }
+        }
+        dirs = ['up', 'down', 'left', 'right'];
+        for (d=0;d<dirs.length;d++) {
+          if (dirs[d] != savedDirection) {
+            map.overrideKey(dirs[d], function(){});
+          }
+        }
+      }
+    });
+    map.startTimer(function() {
+      player = map.getPlayer();
+      if (map.getObjectTypeAt(player.getX(), 
+          player.getY()) == 'ice') {
+        player.move(savedDirection);
+      } else {
+        map.overrideKey('up', null);
+        map.overrideKey('down', null);
+        map.overrideKey('left', null);
+        map.overrideKey('right', null);
+      }
+    },200);
+    map.createFromGrid(
+       ['+++++++++++++++++++++++++++++++',
+        '+               +++           +',
+        '+               +E+           +',
+        '+              xxxx           +',
+        '+              xxxx           +',
+        '+              xxxx           +',
+        '+              xxxx           +',
+        '+              @+++           +',
+        '+                             +',
+        '+                             +',
+        '+                             +',
+        '+                             +',
+        '+                             +',
+        '+                             +',
+        '+++++++++++++++++++++++++++++++'],
+    {
+        '@': 'player',
+        'E': 'exit',
+        '+': 'block',
+        'x': 'ice',
+    }, 6, 6);
 #BEGIN_EDITABLE#
 
 #END_EDITABLE#
-    for (x = 7; x <= map.getWidth() - 3; x++) {
-        map.placeObject(x, 7, 'block');
-        map.placeObject(x, map.getHeight() - 3, 'block');
-    }
 
-    map.placeObject(map.getWidth() - 5, 5, 'exit');
 #END_OF_START_LEVEL#
 }
+
+function validateLevel(map) {
+    map.validateExactlyXManyObjects(0, 'phone');
+    map.validateExactlyXManyObjects(0, 'theAlgorithm');
+    map.validateExactlyXManyObjects(1, 'exit');
+    map.validateAtMostXDynamicObjects(0);
+}
+
