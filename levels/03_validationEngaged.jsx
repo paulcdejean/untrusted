@@ -53,4 +53,6 @@ function validateLevel(map) {
     map.validateExactlyXManyObjects(0, 'phone');
     map.validateExactlyXManyObjects(0, 'theAlgorithm');
     map.validateExactlyXManyObjects(1, 'exit');
+    map.validateNoTimers();
+    map.validateAtMostXDynamicObjects(0);
 }
