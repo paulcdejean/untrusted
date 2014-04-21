@@ -47,10 +47,11 @@ function startLevel(map) {
     });
     map.startTimer(function() {
       player = map.getPlayer();
-      if (map.getObjectTypeAt(player.getX(), 
-          player.getY()) == 'ice') {
+      x = player.getX(); y = player.getY();
+      if (map.getObjectTypeAt(x,y) == 'ice') {
         player.move(savedDirection);
-      } else {
+      }
+      if (player.getX() == x && player.getY() == y) {
         map.overrideKey('up', null);
         map.overrideKey('down', null);
         map.overrideKey('left', null);
@@ -60,7 +61,7 @@ function startLevel(map) {
     map.createFromGrid(
        ['+++++++++++++++++++++++++++++++',
         '+               +++           +',
-        '+               +E+           +',
+        '+              ++E+           +',
         '+              xxxx           +',
         '+              xxxx           +',
         '+              xxxx           +',
