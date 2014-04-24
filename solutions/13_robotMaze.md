@@ -1,5 +1,20 @@
-# Breadth-First Search approaches
+# Maze-following approaches
+## Deviator
 
+```javascript
+if( typeof this.cdir == 'undefined' ) this.cdir = 0;
+var dir = ['right', 'up', 'left', 'down'];
+var ln = dir.length;
+
+if( me.canMove(dir[(this.cdir+1)%ln]) )
+	this.cdir = (this.cdir+1)%ln;
+else if( !me.canMove(dir[this.cdir]) )
+	this.cdir = (this.cdir+ln-1)%ln;
+
+me.move(dir[this.cdir]);
+```
+
+# Breadth-First Search approaches
 ## Yuval
 
 ```javascript
@@ -74,6 +89,29 @@ if (me.pathFound) {
 ```
 
 # Player-controlled approaches
+
+## kerzol
+```
+map.setSquareColor(21, 22, 'red');
+map.setSquareColor(22, 21, 'blue');
+map.setSquareColor(21, 20, 'green');
+map.setSquareColor(20, 21, 'white');
+   
+function getDirection() {
+  if (player.atLocation(21, 20) ) {
+      return ('up');
+  } else if (player.atLocation(21, 22)) {
+      return ('down');
+  } else if (player.atLocation(20, 21))  {
+      return ('left');
+  } else if (player.atLocation(22, 21) ) {
+      return ('right');
+  }
+}
+map.setSquareColor(me.getX(),me.getY(),'red');
+me.move(getDirection())
+```
+
 ## RockerM4NHUN
 
 ```javascript

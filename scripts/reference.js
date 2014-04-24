@@ -6,7 +6,7 @@ Game.prototype.reference = {
         'description': 'Begins drawing a new shape.'
     },
     'canvas.lineTo': {
-        'name': 'canvasContext.beginPath(x, y)',
+        'name': 'canvasContext.lineTo(x, y)',
         'category': 'canvas',
         'type': 'method',
         'description': 'Sets the end coordinates of a line.'
@@ -319,7 +319,7 @@ Game.prototype.reference = {
         'name': 'object.canMove(direction)',
         'category': 'object',
         'type': 'method',
-        'description': '(For dynamic objects only.) Returns true iff the object is able to move one square in the given direction, which can be "left", "right", "up", or "down".'
+        'description': '(For dynamic objects only.) Returns true if (and only if) the object is able to move one square in the given direction, which can be "left", "right", "up", or "down".'
     },
     'object.color': {
         'name': 'object.color',
@@ -356,12 +356,6 @@ Game.prototype.reference = {
         'category': 'object',
         'type': 'property',
         'description': 'The function that determines whether or not the player can pass through this object.'
-    },
-    'object.inventory': {
-        'name': 'object.inventory',
-        'category': 'object',
-        'type': 'property',
-        'description': '(For dynamic objects only.) The list of items that every object of this type starts with.'
     },
     'object.move': {
         'name': 'object.move(direction)',
